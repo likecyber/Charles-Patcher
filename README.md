@@ -4,6 +4,8 @@ The automate "Charles Web Debugging Proxy" patching script for Windows.
 
 This script will basically gain you Full Version without having the license.
 
+---
+
 ## How to use the script?
 
 Download and Run "Charles Patcher.bat" as Administrator.
