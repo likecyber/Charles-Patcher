@@ -8,7 +8,7 @@ This script will basically gain you Full Version without having the license.
 
 ## How to use the script?
 
-Download and Run "Charles Patcher.bat" as Administrator.
+Download this github repo then  ectract it and configure "set charles" with the correct path in "Charles Patcher.bat" before running it as Administrator.
 
 It will automatically patch "charles.jar" file and replace the original file for you.
 

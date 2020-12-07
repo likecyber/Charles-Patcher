@@ -23,17 +23,17 @@ REM Extract charles.jar
 echo Extracking charles.jar...
 mkdir .\charles\
 cd .\charles\
-jar xf ..\charles_original.jar
+..\jdk\bin\jar.exe xf ..\charles_original.jar
 cd ..
 
 REM Decompiling
 echo Decompiling Main.class...
-jad .\charles\com\xk72\charles\Main.class >nul 2>&1
-grep "protected boolean [a-zA-Z]" .\Main.jad | grep -Eo " [a-zA-Z]+;" | grep -Eo "[a-zA-Z]+" > grep.temp
+.\jdk\bin\java.exe -jar cfr-0.150.jar .\charles\com\xk72\charles\Main.class >Main.cfr 2>&1
+.\grep\grep.exe "protected boolean [a-zA-Z]" .\Main.cfr | .\grep\grep.exe -Eo -m 1 " [a-zA-Z]+;" | .\grep\grep.exe -Eo -m 1 "[a-zA-Z]+" > grep.temp
 set /p validate=<grep.temp
-grep "Registered to: " .\Main.jad | grep -Eo "[a-zA-Z]+\.[a-zA-Z]+\(\)" | grep -Eo "[a-zA-Z]+\." | grep -Eo "[a-zA-Z]+" > grep.temp
+.\grep\grep.exe "Registered to: " .\Main.cfr | .\grep\grep.exe -Eo "[a-zA-Z]+\.[a-zA-Z]+\(\)" | .\grep\grep.exe -Eo "[a-zA-Z]+\." | .\grep\grep.exe -Eo "[a-zA-Z]+" > grep.temp
 set /p class=<grep.temp
-grep "Registered to: " .\Main.jad | grep -Eo "[a-zA-Z]+\.[a-zA-Z]+\(\)" | grep -Eo "\.[a-zA-Z]+" | grep -Eo "[a-zA-Z]+" > grep.temp
+.\grep\grep.exe "Registered to: " .\Main.cfr | .\grep\grep.exe -Eo "[a-zA-Z]+\.[a-zA-Z]+\(\)" | .\grep\grep.exe -Eo "\.[a-zA-Z]+" | .\grep\grep.exe -Eo "[a-zA-Z]+" > grep.temp
 set /p identify=<grep.temp
 
 REM Patching
@@ -44,9 +44,9 @@ echo 	public static boolean %validate%() { return true; } >> %class%.java
 echo 	public static String %identify%() { return "%identification%"; } >> %class%.java
 echo 	public static String %validate%(String name, String key) { return null; } >> %class%.java
 echo } >> %class%.java
-javac -encoding UTF-8 %class%.java -d .
+.\jdk\bin\javac.exe -encoding UTF-8 %class%.java -d .
 copy .\charles_original.jar .\charles.jar /y >nul 2>&1
-jar -uvf .\charles.jar ./com/xk72/charles/%class%.class >nul 2>&1
+.\jdk\bin\jar.exe -uvf .\charles.jar ./com/xk72/charles/%class%.class >nul 2>&1
 copy .\charles.jar "%charles%" /y >nul 2>&1
 
 REM Cleaning
