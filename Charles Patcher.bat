@@ -1,7 +1,7 @@
 @echo off
 title Charles Patcher
 
-set charles=D:\Program Files\Charles\lib\charles.jar
+set charles=C:\Program Files\Charles\lib\charles.jar
 set identification=Charles Patcher
 
 cd /d "%~dp0"
